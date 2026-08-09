@@ -1,0 +1,96 @@
+name: Build hardened TVBoxOSC
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-tvboxosc.yml'
+      - 'tvboxosc-build/harden.ps1'
+      - '*.json'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out build scripts
+        uses: actions/checkout@v4
+
+      - name: Check out preserved upstream fork
+        uses: actions/checkout@v4
+        with:
+          repository: no1412/TVBoxOSC
+          ref: e8c12d2bf408feb129857e577803d918e613482f
+          path: source
+
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+
+      - name: Harden source
+        shell: pwsh
+        working-directory: source
+        run: ../tvboxosc-build/harden.ps1
+
+      - name: Build debug APK
+        working-directory: source
+        env:
+          GRADLE_OPTS: -Dorg.gradle.internal.http.connectionTimeout=120000 -Dorg.gradle.internal.http.socketTimeout=120000
+        run: |
+          chmod +x gradlew
+          for attempt in 1 2 3; do
+            set +e
+            ./gradlew --no-daemon --max-workers=1 --stacktrace :app:assembleDebug 2>&1 | tee ../gradle-build.log
+            status=${PIPESTATUS[0]}
+            set -e
+            if [ "$status" -eq 0 ]; then
+              exit 0
+            fi
+            echo "Gradle attempt $attempt failed; retrying dependency downloads..."
+            sleep 15
+          done
+          exit "$status"
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tvboxosc-gradle-log
+          path: gradle-build.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Save failed build log to repository
+        if: failure()
+        run: |
+          cp gradle-build.log tvboxosc-build/latest-gradle-build.log
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add tvboxosc-build/latest-gradle-build.log
+          git commit -m "Save TVBoxOSC build failure log" || exit 0
+          git push
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: tvboxosc-hardened-debug
+          path: source/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish APK for direct download
+        run: |
+          mkdir -p tvboxosc-build/output
+          cp source/app/build/outputs/apk/debug/app-debug.apk tvboxosc-build/output/tvboxosc-hardened-debug.apk
+          sha256sum tvboxosc-build/output/tvboxosc-hardened-debug.apk > tvboxosc-build/output/tvboxosc-hardened-debug.apk.sha256
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -f tvboxosc-build/output/tvboxosc-hardened-debug.apk tvboxosc-build/output/tvboxosc-hardened-debug.apk.sha256
+          git commit -m "Publish hardened TVBoxOSC APK" || exit 0
+          git pull --rebase origin main
+          git push

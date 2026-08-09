@@ -1,0 +1,25 @@
+{
+  "versionCode": 56,
+  "versionName": "1.0.56",
+  "apkUrl": "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Assets/main/LDW-Cinema-v1.0.56.apk",
+  "apkUrls": [
+    "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Assets/main/LDW-Cinema-v1.0.56.apk",
+    "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema-Assets@main/LDW-Cinema-v1.0.56.apk",
+    "https://ghproxy.net/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Assets/main/LDW-Cinema-v1.0.56.apk"
+  ],
+  "sha256": "5d9a887f56ce60e60d256c0fd72253644cd165a27e40e2515aaf463539bbfdc7",
+  "changelog": "修复电视更新等待很久后出现 HTTP 404：GitHub Release APK 不再被错误改写为 raw 地址，直接使用有效下载地址；同时保留精选类型过滤、8 秒稳定轮换及海报双重去重。",
+  "manifestVersion": 2,
+  "mirrors": {
+    "manifest": [
+      "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update.json",
+      "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/update.json",
+      "https://gitee.com/lidawei1985/LDW-Cinema/raw/main/update.json"
+    ]
+  },
+  "signature": {
+    "algorithm": "SHA256withRSA",
+    "keyId": "update-key-v1",
+    "value": "b1SZcRjl+1jfSlU9zQoWdy55V18Ag9e56rOL1A9lG4WXX8+yzU2hexrDd4SDMZevC75fYVdApr7waFXsZT5AM8deaeYKPo9hwZnpgLg0ENnq25rzKDQitc6YT3vVIQ0BQxf68UlI6sBZCsI3EbphRvnPgK6DU+si3/MxgeB44COOq+TKmibSvoi2MGAGgf3IQIr4HGQQrdoPMNwjoKJK+CWPzOsRcq3VtvUQeAviTyUD7zyYy2ARIdQme9HRXVnjaMK52ZX0HxaLdrPm7oUg0uGQjoxLZ7LaRJFXveVD5oChkvVL5rpaage9WSj0imU4rzpj7dd/ScuAi/PT/TmZoA=="
+  }
+}

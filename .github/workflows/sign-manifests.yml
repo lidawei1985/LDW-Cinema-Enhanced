@@ -1,0 +1,52 @@
+name: Verify manifest signatures
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'update-mobile.json'
+      - 'source-update.json'
+      - 'update.json'
+      - 'releases/mobile/update-mobile.json'
+      - 'tools/**'
+      - '.github/workflows/sign-manifests.yml'
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install cryptography
+        run: pip install cryptography
+
+      - name: Verify update-mobile.json
+        run: python tools/verify-manifest.py update-mobile.json
+
+      - name: Verify source-update.json
+        run: python tools/verify-manifest.py source-update.json
+
+      - name: Verify update.json
+        run: python tools/verify-manifest.py update.json
+
+      - name: Verify releases/mobile/update-mobile.json
+        run: python tools/verify-manifest.py releases/mobile/update-mobile.json
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "### Manifest Signature Verification" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| File | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| update-mobile.json | $([ -f update-mobile.json ] && python tools/verify-manifest.py update-mobile.json >/dev/null 2>&1 && echo '✅ Valid' || echo '❌ Invalid') |" >> $GITHUB_STEP_SUMMARY
+          echo "| source-update.json | $([ -f source-update.json ] && python tools/verify-manifest.py source-update.json >/dev/null 2>&1 && echo '✅ Valid' || echo '❌ Invalid') |" >> $GITHUB_STEP_SUMMARY
+          echo "| update.json | $([ -f update.json ] && python tools/verify-manifest.py update.json >/dev/null 2>&1 && echo '✅ Valid' || echo '❌ Invalid') |" >> $GITHUB_STEP_SUMMARY

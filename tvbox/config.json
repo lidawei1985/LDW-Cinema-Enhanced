@@ -1,0 +1,29 @@
+{
+  "sites": [
+    {
+      "key": "public_vod",
+      "name": "公开授权点播",
+      "type": 1,
+      "api": "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/tvbox/vod.json",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    }
+  ],
+  "lives": [
+    {
+      "name": "公开测试直播",
+      "type": 0,
+      "url": "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/tvbox/live.txt"
+    }
+  ],
+  "parses": [
+    {
+      "name": "直连播放",
+      "type": 0,
+      "url": ""
+    }
+  ],
+  "flags": ["mp4", "m3u8"],
+  "wallpaper": ""
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  网络安全配置模板
+  复制到 app/src/main/res/xml/network_security_config.xml
+
+  在 AndroidManifest.xml 中引用:
+  <application android:networkSecurityConfig="@xml/network_security_config" ...>
+-->
+<network-security-config>
+
+    <!-- 全局禁用明文 HTTP 流量 -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!--
+      证书锁定配置
+      需要填入实际的公钥 SHA-256 哈希
+      获取方法: echo | openssl s_client -connect DOMAIN:443 2>/dev/null \
+                | openssl x509 -pubkey -noout \
+                | openssl pkey -pubin -outform der \
+                | openssl dgst -sha256 -binary \
+                | openssl base64
+    -->
+    <domain-config>
+        <domain includeSubdomains="true">raw.githubusercontent.com</domain>
+        <pin-set expiration="2027-12-31">
+            <pin digest="SHA-256">2kOi4HdYYsvtr1RBy6nUDrZZxYxtCBk1t1VYQ1cYQhc=</pin>
+            <!-- 备用 pin: 填入 GitHub 备用证书公钥哈希 -->
+        </pin-set>
+    </domain-config>
+
+    <domain-config>
+        <domain includeSubdomains="true">cdn.jsdelivr.net</domain>
+        <pin-set expiration="2027-12-31">
+            <pin digest="SHA-256">填入 jsDelivr 证书公钥哈希</pin>
+        </pin-set>
+    </domain-config>
+
+    <domain-config>
+        <domain includeSubdomains="true">gitee.com</domain>
+        <pin-set expiration="2027-12-31">
+            <pin digest="SHA-256">填入 Gitee 证书公钥哈希</pin>
+        </pin-set>
+    </domain-config>
+
+</network-security-config>

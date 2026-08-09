@@ -1,0 +1,20 @@
+# Private keys - NEVER commit
+tools/keys/update_private_key.pem
+*.private.pem
+private_key.pem
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pycache/
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editor
+*.swp
+*.swo
+*~

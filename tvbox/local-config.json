@@ -1,0 +1,17 @@
+{
+  "sites": [
+    {
+      "key": "local_vod",
+      "name": "本机点播",
+      "type": 1,
+      "api": "http://10.0.2.2:18080/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    }
+  ],
+  "lives": [{"name":"公开测试直播","type":0,"url":"http://10.0.2.2:18080/live.txt"}],
+  "parses": [{"name":"直连播放","type":0,"url":""}],
+  "flags": ["mp4", "m3u8"],
+  "wallpaper": ""
+}

@@ -1,0 +1,55 @@
+{
+  "code": 1,
+  "msg": "success",
+  "page": 1,
+  "pagecount": 1,
+  "limit": 20,
+  "total": 3,
+  "class": [
+    { "type_id": "movie", "type_name": "开源电影" }
+  ],
+  "list": [
+    {
+      "vod_id": "sintel",
+      "vod_name": "Sintel",
+      "type_id": "movie",
+      "type_name": "开源电影",
+      "vod_pic": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Sintel_poster.jpg/480px-Sintel_poster.jpg",
+      "vod_year": "2010",
+      "vod_area": "荷兰",
+      "vod_remarks": "Blender 开源电影",
+      "vod_actor": "Halina Reijn, Thom Hoffman",
+      "vod_director": "Colin Levy",
+      "vod_content": "Blender 基金会发布的开放电影，可公开点播。",
+      "vod_play_from": "公开线路",
+      "vod_play_url": "正片$https://media.w3.org/2010/05/sintel/trailer.mp4"
+    },
+    {
+      "vod_id": "bunny",
+      "vod_name": "Big Buck Bunny",
+      "type_id": "movie",
+      "type_name": "开源电影",
+      "vod_pic": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/480px-Big_buck_bunny_poster_big.jpg",
+      "vod_year": "2008",
+      "vod_area": "荷兰",
+      "vod_remarks": "Blender 开源电影",
+      "vod_director": "Sacha Goedegebure",
+      "vod_content": "Blender 基金会发布的开放动画电影，可公开点播。",
+      "vod_play_from": "公开线路",
+      "vod_play_url": "正片$https://media.w3.org/2010/05/bunny/trailer.mp4"
+    },
+    {
+      "vod_id": "flower",
+      "vod_name": "Flower",
+      "type_id": "movie",
+      "type_name": "开源电影",
+      "vod_pic": "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg",
+      "vod_year": "公开测试",
+      "vod_area": "W3C",
+      "vod_remarks": "MP4 点播测试",
+      "vod_content": "用于验证 TVBox 详情、选集和点播播放器链路。",
+      "vod_play_from": "公开线路",
+      "vod_play_url": "正片$https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+    }
+  ]
+}
