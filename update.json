@@ -14,12 +14,12 @@
     "manifest": [
       "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update.json",
       "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/update.json",
-      "https://gitee.com/lidawei1985/LDW-Cinema/raw/main/update.json"
+      "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update.json"
     ]
   },
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "b1SZcRjl+1jfSlU9zQoWdy55V18Ag9e56rOL1A9lG4WXX8+yzU2hexrDd4SDMZevC75fYVdApr7waFXsZT5AM8deaeYKPo9hwZnpgLg0ENnq25rzKDQitc6YT3vVIQ0BQxf68UlI6sBZCsI3EbphRvnPgK6DU+si3/MxgeB44COOq+TKmibSvoi2MGAGgf3IQIr4HGQQrdoPMNwjoKJK+CWPzOsRcq3VtvUQeAviTyUD7zyYy2ARIdQme9HRXVnjaMK52ZX0HxaLdrPm7oUg0uGQjoxLZ7LaRJFXveVD5oChkvVL5rpaage9WSj0imU4rzpj7dd/ScuAi/PT/TmZoA=="
+    "value": "Vydg612vhaKT0j5/p7wIn0VaCAT3p3pDX4G9yxNgfpUpOu7SeGqkpxT8/vJ38kfClwvFqBDFvN78e7QcBwplTSjus8RoMdaz5k/1B1KA4QaR4mg+3D+RGgWC/sTeDq6WElWxD1SyNxhf/s2TvAvtDZ2cRfE4Jx6ATQD8C7i89JfMZ+3fAPQ1OQ9HUn28QQklgiKyu7PFeQczMpDyuO9cqxirWx8C5INke5dqX4SYDZbqIkxdYfMJg3An5OaW19N4UUA4c4fwyK8zcy3wOyA+dHt3D9TLl0IvKVP8aGJWJHsrT0slaTbJggW8p3SdEMK1H6vK3yMFTf7ZjJuEROXOQg=="
   }
 }

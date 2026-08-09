@@ -24,17 +24,17 @@ REMOTE_URLS = {
     "update-mobile.json": [
         "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update-mobile.json",
         "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/update-mobile.json",
-        "https://gitee.com/lidawei1985/LDW-Cinema/raw/main/update-mobile.json",
+        "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update-mobile.json",
     ],
     "source-update.json": [
         "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/source-update.json",
         "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/source-update.json",
-        "https://gitee.com/lidawei1985/LDW-Cinema/raw/main/source-update.json",
+        "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/source-update.json",
     ],
     "update.json": [
         "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update.json",
         "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/update.json",
-        "https://gitee.com/lidawei1985/LDW-Cinema/raw/main/update.json",
+        "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update.json",
     ],
 }
 

@@ -4,13 +4,13 @@
   "configUrls": [
     "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/combined.json",
     "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/combined.json",
-    "https://gitee.com/lidawei1985/LDW-Cinema/raw/main/combined.json"
+    "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/combined.json"
   ],
   "sha256": "10ff64d19c082ea04e979ac84e726cae1e024aec478e8c17ab89f4baccefb94a",
   "manifestVersion": 2,
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "V/dRMvXDdfHqt0oxrdgekFhNEzT4A+WtxEYApZTVa3C1ou6iZNhCOFavAhtlZP2ahyv5kUiftn7WKtvxHWbcATnFJsLreuJKpyVTp6ly0rwmhRzCDPN95A5ce7/GC5HYu3v2TxVKEtagmw5VeoPvhe0z7/QF27d4CEuJq0vRpvNLcSD2sqeHPxFJ9rgBWNmLKJQ4pCtpQP3ELfbMrITxjxyveHua37wfB7Ri+XZdnoLlXdsTu4P/BgkSkhGH7Y1W+M5zh6WeFAoiCvwcIALjzfvKaSnyH2iG3pb/0AsZ7tAXneQchQV5qKPcdvtfo6hCMYLHCsGTCHSNfoMtEiVyuA=="
+    "value": "SlvEIYEqmJPs8BWVvzHtvEJI34X/OydvsQi404pDNNjUZx4SWsmyO5buc25DZNGyHpBHNe8T5NVAvWPuy2+NYbE1K1p6n5Pfr9N39m44PXP+BOnX+o0tzPvanTALuY0NCQApSzg5B6lh7f6oO8NEfQTzyWbjN83yEnY7S+p6Zm//kJ2FxqafXHbVbPuJcqky2vRHk0sHE9aaQwQuP6eIljSQbKQuEBVkbiZ8+Ex8CH44Q8DSmv9NaJwv5ZryRvdVEv6IkdKxoUyOz1CWjBeE3oQ4Xi/Dd+QlNdqL0KKKdZ1Ym1JZ035l3LtLUNniek1pPQHA7vjjPcCxY0oq5vDBcg=="
   }
 }
