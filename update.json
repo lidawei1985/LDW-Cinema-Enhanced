@@ -1,6 +1,6 @@
 {
-  "enhancedVersion": "v1",
-  "enhancedName": "LDW-Cinema-Enhanced-v1",
+  "enhancedVersion": "v2",
+  "enhancedName": "LDW-Cinema-Enhanced-v2",
   "versionCode": 56,
   "versionName": "1.0.56",
   "apkUrl": "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Assets/main/LDW-Cinema-v1.0.56.apk",
@@ -10,7 +10,7 @@
     "https://ghproxy.net/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Assets/main/LDW-Cinema-v1.0.56.apk"
   ],
   "sha256": "5d9a887f56ce60e60d256c0fd72253644cd165a27e40e2515aaf463539bbfdc7",
-  "changelog": "修复电视更新等待很久后出现 HTTP 404：GitHub Release APK 不再被错误改写为 raw 地址，直接使用有效下载地址；同时保留精选类型过滤、8 秒稳定轮换及海报双重去重。",
+  "changelog": "内容源大扩充(23个已验证VOD源), 新增3个外部直播源(IPV6/IPV4+EPG+台标), 新增5个解析器",
   "manifestVersion": 2,
   "mirrors": {
     "manifest": [
@@ -22,6 +22,6 @@
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "ZAjvn6nNnVGnvRZOe7RqDHtlL8e392EmxPYCw8uz77HBZ4JBd5OBQI2csVUS+i7Amaj4lMnegQNqxrrD/2p5UZ9fgPkOmRoXNYtjHpK5ih/FYj+3WomkirHwCFT/xXYmxTyZ92PhyErV2jZjO33NGSQbtPzkWsPy+JiNBMPsqMSbp8AZ+oflNPPB56P4RMk/cdD/3nkkam/H7qiPYaV34zxpzzRKxScSgmSI+eLDh4Z+/I6dPJj91QRp8tlVTlHsA3WqVxHVUCToYqqRx9lQLz9F3u3l9ZCoXZdmfzm9nLLiGZ9/Gg00TcHQaNOly30R0rfzUAMNpjYaf7IwHJPgJA=="
+    "value": "Q7jl9bPEqqMLLKGZq4LijUO7+zf8A5FimtAmxn/Kq/pfn38rR6ZapRBG04E5Ap7wkQyKAgafGrOvAG+0N2yX0w7/w6AElXCXzFVyj6q6z59JcUwkzJu3GUnELuR+e3Jpg2csyu2PuEzvuo9jj/78/FEjupK3nNTmEIzhmQFwGVA8oOx5u+bzNQK42/0ddR0gyFX3npFEmG//dWOF+muGWVExgtiEPj9cNOENH9DLUuu2k7DAai9hQ+aUPesPxwq0xnpEBzx+0jGzcKJx9NTfI4KHia7r8K+2/dPagcvH40NSuAnlzMJLWgkYjOQ4T7IfPTuv2TxcowzTGETgndhIYQ=="
   }
 }

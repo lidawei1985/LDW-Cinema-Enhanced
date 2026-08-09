@@ -1,8 +1,8 @@
 {
   "channel": "stable",
   "platform": "android-mobile",
-  "enhancedVersion": "v1",
-  "enhancedName": "LDW-Cinema-Enhanced-v1",
+  "enhancedVersion": "v2",
+  "enhancedName": "LDW-Cinema-Enhanced-v2",
   "packageName": "com.ldw.cinema.mobile",
   "versionCode": 248,
   "versionName": "1.0.248-mobile",
@@ -14,7 +14,7 @@
   ],
   "sha256": "9D3591BA95228120CE343447F498974E4BCF18116322257B936CFC80C93CC449",
   "minimumSupportedVersionCode": 84,
-  "changelog": "成人模式三级片页保留原名称和原海报；新增电视端真实港台三级电影分类（ID 56），使用独立源并与正常模式、成人首页源池隔离。未改正常模式。",
+  "changelog": "内容源大扩充(23个已验证VOD源), 新增3个外部直播源(IPV6/IPV4+EPG+台标), 新增5个解析器, 海报加载优化, 直播多路备份+自动故障切换",
   "manifestVersion": 2,
   "mirrors": {
     "manifest": [
@@ -32,6 +32,6 @@
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "ISI9bjfMGPAg6FLL8Fc5EVZoS9njxHkL1+PWD/THeovwtRyEb71VnX+TeaGO4W+JPoXS79DLhzdJsf2fj5kHJXsDA3PQICIrN3dpMmDP4LV+iVF0Kq6IQwoj5X3NSOE9L6tWd+06QA/AafNqMVI+t75BScuOUq/vjNliYpcDxBgOYEGB75JMd+2XTS/Pg0TEokaDUesSSk4kOGOk83qVcvCwCo6gw9yXOMZ0+5Uf4IxflOBQOUlkTvyBvnw+WQzz1YNossUAmlgrogzTcPAcT+kIkHt9ULodbk0r39/VN/9UUiqkvocbdskxjUGqQaRVKVPPur/kHPi68Sb7DgbMUQ=="
+    "value": "F2U9c7Xo4L8A/lNUquyvoPvqbRTXfR+Rgxx7orhbjUw24rrM27DNRwcndb7/0qKPqmmZOF7+ubKUHitrikcSP66aoQtuO5X1rro2b6Wd0bnKgnO/3BYBC2WcUNA3DFmUZnBMJLbaIe8LYKycQqnEz+UEw5xopyCk5tZtMl9puFK0aHblc07yGMaSxp6LflBJAucwabtklm0RHTXNRAXSX48ae8dorwvJqXvFHJ11IN7wYwNfFXXlM7qSHH96PNofocBegx3wblNp6+z8OeiuR8JIHGjiZ2ScCqOg4BW0BI0u7kQovG6JQsPzfujsE2XhAOsyqxV8EZaMnSeAJEgpEw=="
   }
 }

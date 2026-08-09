@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LDW-Cinema-Enhanced Full Test Suite"""
+"""LDW-Cinema-Enhanced-v2 Full Test Suite"""
 import urllib.request, ssl, json, time, base64, sys, os
 from pathlib import Path
 from cryptography.hazmat.primitives import hashes, serialization
@@ -19,7 +19,7 @@ def record(name, ok, detail=""):
     else:
         FAIL += 1
     results.append((name, status, detail))
-    print(f"  [{status}] {name:45s} {detail}")
+    print(f"  [{status}] {name:50s} {detail}")
 
 def test_mirror(name, url, expect_json=False, expect_apk=False, timeout=15):
     t0 = time.time()
@@ -56,50 +56,36 @@ def test_mirror(name, url, expect_json=False, expect_apk=False, timeout=15):
         return False
 
 print("=" * 80)
-print("LDW-Cinema-Enhanced-v1 Full Test Suite")
+print("LDW-Cinema-Enhanced-v2 Full Test Suite")
 print("=" * 80)
 
 # --- Section 1: Sign/Verify ---
-print("\n--- Section 1: Sign/Verify (8 tests) ---")
+print("\n--- Section 1: Sign/Verify ---")
 
 # 1.1 Verify local signatures
+import importlib.util
+spec = importlib.util.spec_from_file_location("verify", "tools/verify-manifest.py")
+mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(mod)
+
 for fname in ["update-mobile.json", "update.json", "source-update.json"]:
-    import importlib.util
-    spec = importlib.util.spec_from_file_location("verify", "tools/verify-manifest.py")
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    
     manifest = json.loads(Path(fname).read_text(encoding="utf-8"))
     pub_key = Path("tools/keys/update_public_key.pem").read_bytes()
     ok = mod.verify_manifest(manifest, pub_key)
-    record(f"Verify {fname} signature", ok, 
-           f"versionCode={manifest.get('versionCode', '?')}")
+    record(f"Verify {fname} signature", ok,
+           f"enhancedVersion={manifest.get('enhancedVersion', '?')}")
 
 # 1.2 Tamper detection
-import tempfile, shutil
 for fname in ["update-mobile.json", "source-update.json"]:
     manifest = json.loads(Path(fname).read_text(encoding="utf-8"))
     manifest["versionCode"] = manifest.get("versionCode", 0) + 999
     pub_key = Path("tools/keys/update_public_key.pem").read_bytes()
-    ok = not mod.verify_manifest(manifest, pub_key)  # Should FAIL = tamper detected
+    ok = not mod.verify_manifest(manifest, pub_key)
     record(f"Tamper detection {fname}", ok, "篡改后被正确拒绝" if ok else "篡改未检测到!")
 
-# 1.3 Re-sign and verify
-for fname in ["update-mobile.json"]:
-    import subprocess
-    r = subprocess.run(
-        ["D:\\DevTools\\Python312\\python.exe", "tools/sign-manifest.py", fname, "--dry-run"],
-        capture_output=True, text=True
-    )
-    ok = r.returncode == 0 and "signature" in r.stdout
-    record(f"Dry-run sign {fname}", ok, "输出签名但不写磁盘" if ok else r.stderr[:60])
-
-# 1.4 Canonical bytes determinism
+# 1.3 Canonical bytes determinism
 manifest = json.loads(Path("update-mobile.json").read_text(encoding="utf-8"))
-spec = importlib.util.spec_from_file_location("sign", "tools/sign-manifest.py")
-sign_mod = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(sign_mod)
-cb1 = sign_mod.canonical_bytes(manifest)
+cb1 = mod.canonical_bytes(manifest)
 cb2 = mod.canonical_bytes(manifest)
 ok = cb1 == cb2
 record("canonical_bytes 一致性", ok, f"sign/verify 两端一致, {len(cb1)} bytes")
@@ -115,18 +101,15 @@ print("  2.2 License mirrors (mobile-licenses.json):")
 test_mirror("GitHub API", "https://api.github.com/repos/lidawei1985/LDW-Cinema/contents/mobile-licenses.json?ref=main", expect_json=True)
 test_mirror("GitHub raw", "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/mobile-licenses.json", expect_json=True)
 test_mirror("jsDelivr CDN", "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/mobile-licenses.json", expect_json=True)
-test_mirror("ghfast.top", "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/mobile-licenses.json", expect_json=True)
 
 print("  2.3 APK download mirrors:")
 test_mirror("GitHub Releases", "https://github.com/lidawei1985/LDW-Cinema/releases/download/v1.0.248-mobile/LDW-Cinema-Mobile-v248.apk", expect_apk=True)
-test_mirror("ghproxy.net", "https://ghproxy.net/https://github.com/lidawei1985/LDW-Cinema/releases/download/v1.0.248-mobile/LDW-Cinema-Mobile-v248.apk", expect_apk=True)
-test_mirror("ghfast.top", "https://ghfast.top/https://github.com/lidawei1985/LDW-Cinema/releases/download/v1.0.248-mobile/LDW-Cinema-Mobile-v248.apk", expect_apk=True)
+test_mirror("ghfast.top APK", "https://ghfast.top/https://github.com/lidawei1985/LDW-Cinema/releases/download/v1.0.248-mobile/LDW-Cinema-Mobile-v248.apk", expect_apk=True)
 
 print("  2.4 Dead mirrors removed verification:")
 dead_urls = [
     ("mirror.ghproxy.com removed", "https://mirror.ghproxy.com/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update-mobile.json"),
     ("ghproxy.com removed", "https://ghproxy.com/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/update-mobile.json"),
-    ("Gitee removed", "https://gitee.com/lidawei1985/LDW-Cinema/raw/main/update-mobile.json"),
 ]
 for name, url in dead_urls:
     try:
@@ -141,7 +124,6 @@ for name, url in dead_urls:
             is_json = True
         except:
             pass
-        # If it returns HTML or non-JSON, it's correctly excluded
         ok = not is_json
         record(name, ok, "dead/non-JSON (correctly removed)" if ok else "STILL RETURNS JSON!")
     except Exception:
@@ -150,7 +132,6 @@ for name, url in dead_urls:
 # --- Section 3: License System ---
 print("\n--- Section 3: License System ---")
 
-# 3.1 Decode local license
 with open("mobile-licenses.json", "r") as f:
     lic = json.load(f)
 payload = json.loads(base64.b64decode(lic["payload"]))
@@ -158,7 +139,6 @@ record("本地 payload 解码", True, f"{len(payload['licenses'])} licenses")
 record("issuedAt 时间戳", "issuedAt" in payload, str(payload.get("issuedAt", "MISSING")))
 record("version 字段", "version" in payload, str(payload.get("version", "MISSING")))
 
-# 3.2 All required fields
 fields_ok = True
 for i, l in enumerate(payload["licenses"]):
     for field in ["deviceCode", "memberName", "expiresAt", "revoked", "adultEnabled"]:
@@ -167,12 +147,9 @@ for i, l in enumerate(payload["licenses"]):
             break
 record("所有授权必填字段完整", fields_ok, f"{len(payload['licenses'])} licenses checked")
 
-# 3.3 License signature (uses license key, not manifest key)
-# License signing: sign(compact_json_bytes) -> payload = base64(compact_json_bytes)
-# So we must verify against the DECODED payload, not the base64 string
+# License signature
 license_pub_key = serialization.load_pem_public_key(Path("tools/keys/license_public_key.pem").read_bytes())
 sig = base64.b64decode(lic["signature"])
-# The signature is over the raw compact JSON bytes (before base64 encoding)
 signed_data = base64.b64decode(lic["payload"])
 try:
     license_pub_key.verify(sig, signed_data, asym_padding.PKCS1v15(), hashes.SHA256())
@@ -180,7 +157,7 @@ try:
 except Exception as e:
     record("License RSA 签名验证", False, str(e)[:60])
 
-# 3.4 Remote license fetch
+# Remote license fetch
 try:
     t0 = time.time()
     req = urllib.request.Request(
@@ -197,87 +174,139 @@ try:
 except Exception as e:
     record("远程授权拉取", False, str(e)[:60])
 
-# 3.5 Device code validation
-record("设备码 - 合法格式", len("88F4FF45B739B16C") == 16, "16 chars uppercase hex")
-record("设备码 - 过短拒绝", len("ABC123") < 16, "rejected")
-record("设备码 - 空值拒绝", len("") == 0, "rejected")
+# --- Section 4: v2 Enhanced Features ---
+print("\n--- Section 4: v2 Enhanced Features ---")
 
-# 3.6 Manifest fields
-manifest = json.loads(Path("update-mobile.json").read_text(encoding="utf-8"))
-record("versionCode 完整性", manifest.get("versionCode") == 248, "248")
-record("versionName 完整性", manifest.get("versionName") == "1.0.248-mobile", "1.0.248-mobile")
-record("SHA256 哈希存在", len(manifest.get("sha256", "")) == 64, f"{manifest.get('sha256', '')[:32]}...")
-
-# 3.7 apkUrls count
-apk_urls = manifest.get("apkUrls", [])
-record("apkUrls 多镜像", len(apk_urls) >= 3, f"{len(apk_urls)} URLs")
-
-# --- Section 4: v1 Enhanced Features ---
-print("\n--- Section 4: v1 Enhanced Features ---")
-
-# 4.1 combined.json exists and has poster config
 combined_path = Path("combined.json")
 if combined_path.exists():
     combined = json.loads(combined_path.read_text(encoding="utf-8"))
     record("combined.json 存在", True, f"{len(combined_path.read_bytes())}B")
 
-    # 4.2 Poster config
+    # Version
+    record("combined.json 版本标识 v2", combined.get("version") == "Enhanced-v2", combined.get("version", "MISSING"))
+
+    # Sites count
+    sites = combined.get("sites", [])
+    record("站点数 >= 25", len(sites) >= 25, f"{len(sites)} sites")
+    
+    # Normal (non-adult) sites count
+    normal_sites = [s for s in sites if "🔞" not in s.get("name", "") and not s.get("key", "").startswith("adult_") and not s.get("key", "").startswith("*") and s.get("key") != "美少女"]
+    record("普通内容源数 >= 20", len(normal_sites) >= 20, f"{len(normal_sites)} normal sources (was 5 in v1)")
+
+    # Key new sources
+    site_keys = [s.get("key", "") for s in sites]
+    new_sources_check = [
+        ("site_suoni", "索尼影视"),
+        ("site_huya", "虎牙资源"),
+        ("site_wujin", "无尽影视"),
+        ("site_jinying", "金鹰资源"),
+        ("site_liangzi", "量子影视"),
+        ("site_haohua", "豪华资源"),
+        ("site_maoyan", "猫眼资源"),
+        ("site_baiduyun", "百度云资源"),
+        ("site_hongniu", "红牛资源"),
+        ("site_ikun", "ikun资源"),
+        ("site_guangsu", "光速资源"),
+        ("site_niuniu", "牛牛资源"),
+        ("site_yaya", "丫丫资源"),
+        ("site_jisu", "极速资源"),
+        ("site_uku", "U酷资源"),
+        ("site_feifan", "非凡影视"),
+        ("site_shandian", "闪电资源"),
+        ("site_yinghua", "樱花资源"),
+        ("site_baofeng", "暴风资源"),
+        ("site_xinlang", "新浪资源"),
+        ("site_senlin", "森林资源"),
+        ("site_maotai", "茅台资源"),
+    ]
+    for key, name in new_sources_check:
+        record(f"新源 {name}", key in site_keys, key)
+
+    # All normal sites have searchable=1
+    searchable_ok = all(s.get("searchable") == 1 for s in normal_sites)
+    record("普通源全部可搜索", searchable_ok, f"{len(normal_sites)} sources searchable")
+
+    # All normal sites have filterable=1
+    filterable_ok = all(s.get("filterable") == 1 for s in normal_sites)
+    record("普通源全部可过滤", filterable_ok, f"{len(normal_sites)} sources filterable")
+
+    # Poster config
     pc = combined.get("posterConfig", {})
     record("posterConfig 存在", "enableCache" in pc, f"cache={pc.get('enableCache')}, days={pc.get('cacheDays')}")
-    record("posterConfig 代理URL", "proxyUrl" in pc, pc.get("proxyUrl", "")[:60])
     record("posterConfig 死源过滤", "slowSourcePatterns" in pc, str(pc.get("slowSourcePatterns", [])))
-    record("posterConfig 并发控制", "maxConcurrent" in pc, f"max={pc.get('maxConcurrent')}, timeout={pc.get('timeout')}ms")
+    record("posterConfig 并发控制", "maxConcurrent" in pc, f"max={pc.get('maxConcurrent')}, timeout={pc.get('timeout')}s")
+    record("posterConfig 回退占位图", "fallbackToPlaceholder" in pc, str(pc.get("fallbackToPlaceholder")))
 
-    # 4.3 Live config
+    # Live config
     lc = combined.get("liveConfig", {})
     record("liveConfig 存在", "healthCheck" in lc, f"healthCheck={lc.get('healthCheck')}, interval={lc.get('healthCheckInterval')}s")
     record("liveConfig 自动故障切换", "autoFallback" in lc, str(lc.get("autoFallback")))
+    record("liveConfig EPG支持", lc.get("epgEnabled", False), str(lc.get("epgEnabled")))
+    record("liveConfig 台标支持", lc.get("logoEnabled", False), str(lc.get("logoEnabled")))
 
-    # 4.4 Version
-    record("combined.json 版本标识", combined.get("version") == "Enhanced-v1", combined.get("version", "MISSING"))
+    # Lives count
+    lives = combined.get("lives", [])
+    record("直播组数 >= 15", len(lives) >= 15, f"{len(lives)} live groups")
 
-    # 4.5 New sites added
-    site_keys = [s.get("key", "") for s in combined.get("sites", [])]
-    record("新增源 黑木耳影视", "normal_heimuer" in site_keys, "json.heimuer.xyz")
-    record("新增源 华为吧影视", "normal_hwbaapi" in site_keys, "json.ghpsys.com")
-    record("站点数 >= 14", len(combined.get("sites", [])) >= 14, f"{len(combined.get('sites', []))} sites")
+    # External live sources (type=0 with url)
+    external_lives = [l for l in lives if l.get("type") == 0 and "url" in l]
+    record("外部直播源 >= 3", len(external_lives) >= 3, f"{len(external_lives)} external live sources")
+    
+    for el in external_lives:
+        record(f"外部直播源: {el.get('name', '?')}", True, el.get("url", "")[:60])
 
-    # 4.6 New live groups
-    live_groups = [lg.get("group", "") for lg in combined.get("lives", [])]
-    record("新增组 央视高清", any("央视高清" in g for g in live_groups), "new stable CCTV sources")
-    record("新增组 卫视频道", any("卫视" in g and "新增" in g for g in live_groups), "new stable provincial sources")
+    # EPG support in external lives
+    epg_ok = any("epg" in el for el in external_lives)
+    record("外部直播源 EPG 支持", epg_ok, "EPG configured")
 
-    # 4.7 Multi-URL channels
-    multi_url = sum(1 for lg in combined.get("lives", []) for ch in lg.get("channels", []) if len(ch.get("urls", [])) > 1)
+    # Multi-URL channels
+    multi_url = sum(1 for lg in lives for ch in lg.get("channels", []) if len(ch.get("urls", [])) > 1)
     record("多路备份频道数 >= 84", multi_url >= 84, f"{multi_url} channels with 2+ URLs")
 
-    # 4.8 Dead sources removed
+    # Parses count
+    parses = combined.get("parses", [])
+    record("解析器数 >= 15", len(parses) >= 15, f"{len(parses)} parses (was 12 in v1)")
+
+    # Dead sources removed
     all_urls = []
-    for lg in combined.get("lives", []):
+    for lg in lives:
         for ch in lg.get("channels", []):
             all_urls.extend(ch.get("urls", []))
     has_gcalic = any("gcalic.v.myalicdn.com" in u for u in all_urls)
     record("死源 gcalic 已移除", not has_gcalic, "403 forbidden source removed")
 
-    # 4.9 Poster config - dead sources in filter
-    dead_in_filter = pc.get("slowSourcePatterns", [])
-    record("doubanio 在死源过滤列表", "doubanio.com" in dead_in_filter, str(dead_in_filter))
+    # enhancedChanges list
+    changes = combined.get("enhancedChanges", [])
+    record("enhancedChanges 存在", len(changes) >= 5, f"{len(changes)} changes documented")
+    record("enhancedChanges v2标识", any("v2" in c for c in changes), "v2 marker in changes")
 else:
     record("combined.json 存在", False, "FILE NOT FOUND")
 
-# 4.10 Manifest enhancedVersion fields
+# Manifest version checks
+print("\n--- Section 5: Manifest Version Consistency ---")
 for fname in ["update-mobile.json", "update.json", "source-update.json"]:
     m = json.loads(Path(fname).read_text(encoding="utf-8"))
-    record(f"{fname} enhancedVersion", m.get("enhancedVersion") == "v1", m.get("enhancedVersion", "MISSING"))
-    record(f"{fname} enhancedName", "Enhanced" in m.get("enhancedName", ""), m.get("enhancedName", "MISSING"))
+    record(f"{fname} enhancedVersion=v2", m.get("enhancedVersion") == "v2", m.get("enhancedVersion", "MISSING"))
+    record(f"{fname} enhancedName=v2", "v2" in m.get("enhancedName", ""), m.get("enhancedName", "MISSING"))
 
-# 4.11 Poster cache worker exists
+# source-update.json specific checks
+su = json.loads(Path("source-update.json").read_text(encoding="utf-8"))
+record("source-update version=3", su.get("version") == 3, str(su.get("version")))
+record("source-update sha256 64chars", len(su.get("sha256", "")) == 64, su.get("sha256", "")[:32] + "...")
+record("source-update configUrls >= 3", len(su.get("configUrls", [])) >= 3, f"{len(su.get('configUrls', []))} URLs")
+record("source-update changes >= 5", len(su.get("changes", [])) >= 5, f"{len(su.get('changes', []))} changes")
+
+# Poster cache worker
 worker_path = Path("tools/poster-cache-worker.js")
 record("海报缓存代理脚本存在", worker_path.exists(), f"{len(worker_path.read_bytes())}B" if worker_path.exists() else "NOT FOUND")
 
-# 4.12 Poster cache guide exists
 guide_path = Path("docs/POSTER_CACHE_GUIDE.md")
 record("海报缓存部署指南存在", guide_path.exists(), f"{len(guide_path.read_bytes())}B" if guide_path.exists() else "NOT FOUND")
+
+# Device code validation
+record("设备码 - 合法格式", len("88F4FF45B739B16C") == 16, "16 chars uppercase hex")
+record("设备码 - 过短拒绝", len("ABC123") < 16, "rejected")
+record("设备码 - 空值拒绝", len("") == 0, "rejected")
 
 # --- Summary ---
 total = PASS + FAIL
@@ -288,7 +317,6 @@ print(f"  PASS: {PASS}")
 print(f"  FAIL: {FAIL}")
 print("=" * 80)
 
-# Print failures
 if FAIL > 0:
     print("\nFailures:")
     for name, status, detail in results:

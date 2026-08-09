@@ -4,6 +4,52 @@
 
 ---
 
+## [Enhanced-v2] - 2026-08-10 (第三版：内容源大扩充)
+
+### 内容源大扩充
+
+- **23个已验证VOD源**：从 v1 的 5 个普通源扩充至 23 个，全部经实测验证可用
+  - 新增：索尼、虎牙、无尽、金鹰、豪华、猫眼、百度云、红牛、ikun、光速、牛牛、丫丫、极速、U酷、闪电、樱花、暴风、新浪、森林、茅台
+  - 保留：非凡、量子（原 lzizy1.com 更新为 cj.lziapi.com）
+  - 按响应速度排序：0.25s ~ 1.29s
+  - 资源总量：3.3万 ~ 25万 部影视
+- 所有普通源开启 `searchable=1` + `quickSearch=1` + `filterable=1`
+- 每个源配置 `apiBackup` 备用域名
+
+### 外部直播源
+
+- 新增 3 个外部直播源（type=0，URL加载）：
+  - IPV6直播源（央视卫视高清）：`fanmingming/live` 仓库，中国移动 OTT 高清
+  - IPV4直播源：`MemoryCollection/IPTV` 仓库
+  - IPVV6备用直播源：`wwb521/live` 仓库
+- 支持 EPG 电子节目单：`epg.51zmt.top`
+- 支持台标自动匹配：`live.fanmingming.com/tv/{name}.png`
+
+### 解析器扩充
+
+- 新增 5 个解析接口：虾米解析、夜幕解析、CK解析、全民解析、M3U8解析
+- 解析器总数：12 → 18
+
+### 配置增强
+
+- `posterConfig` 新增 `fallbackToPlaceholder: true`（海报加载失败回退占位图）
+- `liveConfig` 新增 `epgEnabled` 和 `logoEnabled` 字段
+- `liveConfig` 新增 `externalSources` 字段（外部直播源数量）
+- `enhancedChanges` 更新为 v2 变更列表
+
+### 版本标识
+
+- 所有 manifest 文件更新为 `enhancedVersion: "v2"` 和 `enhancedName: "LDW-Cinema-Enhanced-v2"`
+- `combined.json` 更新为 `version: "Enhanced-v2"`
+- `source-update.json` 更新为 `version: 3`，SHA256 重新计算
+
+### 测试
+
+- 测试从 57 项扩展至 84 项，全部通过（100%）
+- 新增：22个新源逐个验证、外部直播源验证、EPG/台标验证、解析器数量验证
+
+---
+
 ## [Enhanced-v1] - 2026-08-10 (第二版修复)
 
 ### 海报加载修复

@@ -1,26 +1,27 @@
 {
-  "version": 2,
-  "enhancedVersion": "v1",
-  "enhancedName": "LDW-Cinema-Enhanced-v1",
+  "version": 3,
+  "enhancedVersion": "v2",
+  "enhancedName": "LDW-Cinema-Enhanced-v2",
   "configUrl": "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Enhanced/main/combined.json",
   "configUrls": [
     "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Enhanced/main/combined.json",
     "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema-Enhanced@main/combined.json",
     "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Enhanced/main/combined.json"
   ],
-  "sha256": "12bb0ac81f4935692db53a0a04880ff83f6c730d4b4192bafa767b79140b4815",
+  "sha256": "7680e9decc8423a7466c5a5723668e500c46c8ef54d773ef512c2619eaa323fe",
   "manifestVersion": 2,
   "changes": [
+    "内容源大扩充: 从5个增至23个已验证可用的VOD源",
+    "直播源增强: 新增3个外部直播源(IPV6央视卫视高清/IPV4通用/IPV6备用), 支持EPG和台标",
+    "解析器扩充: 新增5个解析接口(虾米/夜幕/CK/全民/M3U8)",
     "海报加载优化: CDN优先排序, 慢源代理加速, 双重重试, 死源过滤",
-    "直播源增强: 每频道多路备份, 新增稳定央视/卫视源, 自动健康检测",
-    "移除死亡源: gcalic 403, doubanio 418, mirror.ghproxy.com SSL",
-    "新增2个极速内容源(黑木耳/华为吧), Cloudflare CDN海报",
-    "新增海报缓存代理方案(Cloudflare Worker)",
-    "版本标识: Enhanced-v1"
+    "直播稳定性: 每频道多路备份, 自动健康检测, 自动故障切换",
+    "手机体验优化: 源按响应速度排序, 搜索全覆盖, 过滤器全开启",
+    "版本标识: Enhanced-v2"
   ],
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "UTvEZczSV9qZW7DrBN6vR5/JLNxCwNm91bQIG0oJXbyOM9qJGSka7Z96JCW7BaQBVQZz0nRcvWPqjaQP9e9X7Ye3GhfSUWK8Zr0YyCB4n0KQYbXQ/R/Qqyr81W1OiRY0mw/qLSKAAQKsyKcWs+Ycqwm0p6G0016+FgzRBzA/M7jyj3/IjJJELsxRQdSf7q0iEz+Y5jsivnkPn3rS2BCPpp8OIigVnrbEYIJJBHGwZOvPZW4p/K5qF3jBcvg+MWWtjJkCtYucJfMLUtY5Zwa+UaVEK7CZQTyFLDLlOdPYQ6U6P0fxQnwXJVOt3zRmmfidmZ9w2VqrEHeGTrpnxrr4AA=="
+    "value": "TskoZAkI67ZBxV6CBW7Hr0sYsVToB5UqKEvByTZNVvXxA/AX/XXQEJBguE6tjhmNdiu/qjmD+R/zL/F6dNo34gDqr1LTSEj3Vi/3C5USjK79avCLjsR2CxZ1EC3Tn0f35XHNfm70feUkzsNWxS3PfGdnQxjgizvAK8RCcUGIAKyN0YpluLJstG2PsrB2hay/F8eDldp7KJ4eN11h6B2r9cwrgKLmAm5m2yniBe8NhuMEVGI/Yq1eZHSvp/HDtpsm2229AdUl3Z/L7H9X+k8NSrFi35iv8RtYrBw+JvD3192v+5hO0MkjxuI27rB/z+JfjCvgQkq4qYwPl9tAm/vjkQ=="
   }
 }
