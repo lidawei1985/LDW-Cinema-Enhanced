@@ -8,8 +8,7 @@
   "apkUrls": [
     "https://github.com/lidawei1985/LDW-Cinema/releases/download/v1.0.248-mobile/LDW-Cinema-Mobile-v248.apk",
     "https://ghproxy.net/https://github.com/lidawei1985/LDW-Cinema/releases/download/v1.0.248-mobile/LDW-Cinema-Mobile-v248.apk",
-    "https://mirror.ghproxy.com/https://github.com/lidawei1985/LDW-Cinema/releases/download/v1.0.248-mobile/LDW-Cinema-Mobile-v248.apk",
-    "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/releases/mobile/LDW-Cinema-Mobile-v248.apk"
+    "https://ghfast.top/https://github.com/lidawei1985/LDW-Cinema/releases/download/v1.0.248-mobile/LDW-Cinema-Mobile-v248.apk"
   ],
   "sha256": "9D3591BA95228120CE343447F498974E4BCF18116322257B936CFC80C93CC449",
   "minimumSupportedVersionCode": 84,
@@ -31,6 +30,6 @@
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "ZKb46EZ05qP1te2uYd3rf5UuwoMJtNerB6Oifj0KKDFH3Ujk9mKcAeee48cjh5jCiDl1KP3GwkjXnMPQw51lRsRmq8cffTuKrEO4CZbfoAY4yJjRmtQvSIKYCWAO9hn9GTgW7ZFwuTtECXppOGA4A5ZSt+8IP1IRAczabP/VqJwjA4/z9/wyWLP7q7FJHZRmqgT4mAVSRUsh3SJrW/EUsLE21GRja1uZL6qarT2ccvDfvD2toiXNXWX5h31LlMXsrKJzTNh4m4tkt2JfMTyM5+2XVNPHAnQx5ycKGaM9V5Aow/JHZim4DuSM7TvFDxT0dsLkygfTj3SKGZZUnE2r9A=="
+    "value": "Jd86x0DmkAN2WlHT2gM0vwChcNbv/NWZ7S//ztGqmhNquPIa4KolMU3Z7Cmf+Kz+HgNSGpMN3iXHy0vPh/9byrK9YarKDUjbJbLguogrlynESIbC/lx5jfqNz8S8EGfW7g6K/SbaryVHjOLeA+Db/1xgnNVvPU66a2oJtKbLVPmdJwzYe7apsqerxL5zDO7aPyuaHujYN+pTe637B4LB4tQQ8O/6ikuZRke8HkJ6w8AaWejAwhDFa2mcnwq7DWf86CvBMFwObSQO92hiVPKSCithlIh5Qj8F6loydkMrqpdoK3Kx+1C9YkGHuBAioAmB1ntpcLiOsZ+abbbRK6yFqQ=="
   }
 }
