@@ -56,7 +56,7 @@ def test_mirror(name, url, expect_json=False, expect_apk=False, timeout=15):
         return False
 
 print("=" * 80)
-print("LDW-Cinema-Enhanced Full Test Suite (v2 - Post Fix)")
+print("LDW-Cinema-Enhanced-v1 Full Test Suite")
 print("=" * 80)
 
 # --- Section 1: Sign/Verify ---
@@ -211,6 +211,73 @@ record("SHA256 哈希存在", len(manifest.get("sha256", "")) == 64, f"{manifest
 # 3.7 apkUrls count
 apk_urls = manifest.get("apkUrls", [])
 record("apkUrls 多镜像", len(apk_urls) >= 3, f"{len(apk_urls)} URLs")
+
+# --- Section 4: v1 Enhanced Features ---
+print("\n--- Section 4: v1 Enhanced Features ---")
+
+# 4.1 combined.json exists and has poster config
+combined_path = Path("combined.json")
+if combined_path.exists():
+    combined = json.loads(combined_path.read_text(encoding="utf-8"))
+    record("combined.json 存在", True, f"{len(combined_path.read_bytes())}B")
+
+    # 4.2 Poster config
+    pc = combined.get("posterConfig", {})
+    record("posterConfig 存在", "enableCache" in pc, f"cache={pc.get('enableCache')}, days={pc.get('cacheDays')}")
+    record("posterConfig 代理URL", "proxyUrl" in pc, pc.get("proxyUrl", "")[:60])
+    record("posterConfig 死源过滤", "slowSourcePatterns" in pc, str(pc.get("slowSourcePatterns", [])))
+    record("posterConfig 并发控制", "maxConcurrent" in pc, f"max={pc.get('maxConcurrent')}, timeout={pc.get('timeout')}ms")
+
+    # 4.3 Live config
+    lc = combined.get("liveConfig", {})
+    record("liveConfig 存在", "healthCheck" in lc, f"healthCheck={lc.get('healthCheck')}, interval={lc.get('healthCheckInterval')}s")
+    record("liveConfig 自动故障切换", "autoFallback" in lc, str(lc.get("autoFallback")))
+
+    # 4.4 Version
+    record("combined.json 版本标识", combined.get("version") == "Enhanced-v1", combined.get("version", "MISSING"))
+
+    # 4.5 New sites added
+    site_keys = [s.get("key", "") for s in combined.get("sites", [])]
+    record("新增源 黑木耳影视", "normal_heimuer" in site_keys, "json.heimuer.xyz")
+    record("新增源 华为吧影视", "normal_hwbaapi" in site_keys, "json.ghpsys.com")
+    record("站点数 >= 14", len(combined.get("sites", [])) >= 14, f"{len(combined.get('sites', []))} sites")
+
+    # 4.6 New live groups
+    live_groups = [lg.get("group", "") for lg in combined.get("lives", [])]
+    record("新增组 央视高清", any("央视高清" in g for g in live_groups), "new stable CCTV sources")
+    record("新增组 卫视频道", any("卫视" in g and "新增" in g for g in live_groups), "new stable provincial sources")
+
+    # 4.7 Multi-URL channels
+    multi_url = sum(1 for lg in combined.get("lives", []) for ch in lg.get("channels", []) if len(ch.get("urls", [])) > 1)
+    record("多路备份频道数 >= 84", multi_url >= 84, f"{multi_url} channels with 2+ URLs")
+
+    # 4.8 Dead sources removed
+    all_urls = []
+    for lg in combined.get("lives", []):
+        for ch in lg.get("channels", []):
+            all_urls.extend(ch.get("urls", []))
+    has_gcalic = any("gcalic.v.myalicdn.com" in u for u in all_urls)
+    record("死源 gcalic 已移除", not has_gcalic, "403 forbidden source removed")
+
+    # 4.9 Poster config - dead sources in filter
+    dead_in_filter = pc.get("slowSourcePatterns", [])
+    record("doubanio 在死源过滤列表", "doubanio.com" in dead_in_filter, str(dead_in_filter))
+else:
+    record("combined.json 存在", False, "FILE NOT FOUND")
+
+# 4.10 Manifest enhancedVersion fields
+for fname in ["update-mobile.json", "update.json", "source-update.json"]:
+    m = json.loads(Path(fname).read_text(encoding="utf-8"))
+    record(f"{fname} enhancedVersion", m.get("enhancedVersion") == "v1", m.get("enhancedVersion", "MISSING"))
+    record(f"{fname} enhancedName", "Enhanced" in m.get("enhancedName", ""), m.get("enhancedName", "MISSING"))
+
+# 4.11 Poster cache worker exists
+worker_path = Path("tools/poster-cache-worker.js")
+record("海报缓存代理脚本存在", worker_path.exists(), f"{len(worker_path.read_bytes())}B" if worker_path.exists() else "NOT FOUND")
+
+# 4.12 Poster cache guide exists
+guide_path = Path("docs/POSTER_CACHE_GUIDE.md")
+record("海报缓存部署指南存在", guide_path.exists(), f"{len(guide_path.read_bytes())}B" if guide_path.exists() else "NOT FOUND")
 
 # --- Summary ---
 total = PASS + FAIL

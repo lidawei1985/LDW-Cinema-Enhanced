@@ -1,16 +1,26 @@
 {
   "version": 2,
-  "configUrl": "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/combined.json",
+  "enhancedVersion": "v1",
+  "enhancedName": "LDW-Cinema-Enhanced-v1",
+  "configUrl": "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Enhanced/main/combined.json",
   "configUrls": [
-    "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/combined.json",
-    "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema@main/combined.json",
-    "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema/main/combined.json"
+    "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Enhanced/main/combined.json",
+    "https://cdn.jsdelivr.net/gh/lidawei1985/LDW-Cinema-Enhanced@main/combined.json",
+    "https://ghfast.top/https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Enhanced/main/combined.json"
   ],
-  "sha256": "10ff64d19c082ea04e979ac84e726cae1e024aec478e8c17ab89f4baccefb94a",
+  "sha256": "12bb0ac81f4935692db53a0a04880ff83f6c730d4b4192bafa767b79140b4815",
   "manifestVersion": 2,
+  "changes": [
+    "海报加载优化: CDN优先排序, 慢源代理加速, 双重重试, 死源过滤",
+    "直播源增强: 每频道多路备份, 新增稳定央视/卫视源, 自动健康检测",
+    "移除死亡源: gcalic 403, doubanio 418, mirror.ghproxy.com SSL",
+    "新增2个极速内容源(黑木耳/华为吧), Cloudflare CDN海报",
+    "新增海报缓存代理方案(Cloudflare Worker)",
+    "版本标识: Enhanced-v1"
+  ],
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "SlvEIYEqmJPs8BWVvzHtvEJI34X/OydvsQi404pDNNjUZx4SWsmyO5buc25DZNGyHpBHNe8T5NVAvWPuy2+NYbE1K1p6n5Pfr9N39m44PXP+BOnX+o0tzPvanTALuY0NCQApSzg5B6lh7f6oO8NEfQTzyWbjN83yEnY7S+p6Zm//kJ2FxqafXHbVbPuJcqky2vRHk0sHE9aaQwQuP6eIljSQbKQuEBVkbiZ8+Ex8CH44Q8DSmv9NaJwv5ZryRvdVEv6IkdKxoUyOz1CWjBeE3oQ4Xi/Dd+QlNdqL0KKKdZ1Ym1JZ035l3LtLUNniek1pPQHA7vjjPcCxY0oq5vDBcg=="
+    "value": "UTvEZczSV9qZW7DrBN6vR5/JLNxCwNm91bQIG0oJXbyOM9qJGSka7Z96JCW7BaQBVQZz0nRcvWPqjaQP9e9X7Ye3GhfSUWK8Zr0YyCB4n0KQYbXQ/R/Qqyr81W1OiRY0mw/qLSKAAQKsyKcWs+Ycqwm0p6G0016+FgzRBzA/M7jyj3/IjJJELsxRQdSf7q0iEz+Y5jsivnkPn3rS2BCPpp8OIigVnrbEYIJJBHGwZOvPZW4p/K5qF3jBcvg+MWWtjJkCtYucJfMLUtY5Zwa+UaVEK7CZQTyFLDLlOdPYQ6U6P0fxQnwXJVOt3zRmmfidmZ9w2VqrEHeGTrpnxrr4AA=="
   }
 }

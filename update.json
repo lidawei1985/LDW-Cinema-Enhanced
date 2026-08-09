@@ -1,4 +1,6 @@
 {
+  "enhancedVersion": "v1",
+  "enhancedName": "LDW-Cinema-Enhanced-v1",
   "versionCode": 56,
   "versionName": "1.0.56",
   "apkUrl": "https://raw.githubusercontent.com/lidawei1985/LDW-Cinema-Assets/main/LDW-Cinema-v1.0.56.apk",
@@ -20,6 +22,6 @@
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "Vydg612vhaKT0j5/p7wIn0VaCAT3p3pDX4G9yxNgfpUpOu7SeGqkpxT8/vJ38kfClwvFqBDFvN78e7QcBwplTSjus8RoMdaz5k/1B1KA4QaR4mg+3D+RGgWC/sTeDq6WElWxD1SyNxhf/s2TvAvtDZ2cRfE4Jx6ATQD8C7i89JfMZ+3fAPQ1OQ9HUn28QQklgiKyu7PFeQczMpDyuO9cqxirWx8C5INke5dqX4SYDZbqIkxdYfMJg3An5OaW19N4UUA4c4fwyK8zcy3wOyA+dHt3D9TLl0IvKVP8aGJWJHsrT0slaTbJggW8p3SdEMK1H6vK3yMFTf7ZjJuEROXOQg=="
+    "value": "ZAjvn6nNnVGnvRZOe7RqDHtlL8e392EmxPYCw8uz77HBZ4JBd5OBQI2csVUS+i7Amaj4lMnegQNqxrrD/2p5UZ9fgPkOmRoXNYtjHpK5ih/FYj+3WomkirHwCFT/xXYmxTyZ92PhyErV2jZjO33NGSQbtPzkWsPy+JiNBMPsqMSbp8AZ+oflNPPB56P4RMk/cdD/3nkkam/H7qiPYaV34zxpzzRKxScSgmSI+eLDh4Z+/I6dPJj91QRp8tlVTlHsA3WqVxHVUCToYqqRx9lQLz9F3u3l9ZCoXZdmfzm9nLLiGZ9/Gg00TcHQaNOly30R0rfzUAMNpjYaf7IwHJPgJA=="
   }
 }

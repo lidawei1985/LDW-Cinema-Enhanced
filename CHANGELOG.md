@@ -4,7 +4,41 @@
 
 ---
 
-## [Enhanced-1.0] - 2026-08-10
+## [Enhanced-v1] - 2026-08-10 (第二版修复)
+
+### 海报加载修复
+
+- **站点重排**：Cloudflare CDN保护的源（非凡影视 `ffeiimg.com`、索泥影视 `snzic.vip`）排到最前，海报加载从 0.66s 降至 0.24s
+- **死源过滤**：移除 `doubanio.com`（418反爬）、`gcalic.v.myalicdn.com`（403禁止）等死亡海报源
+- **海报缓存代理**：新增 Cloudflare Worker 脚本（`tools/poster-cache-worker.js`），边缘缓存7天 + WebP压缩
+- **并发控制**：海报最大并发6路、8s超时、2次重试
+- **新增2个极速源**：黑木耳影视（`json.heimuer.xyz`）、华为吧影视（`json.ghpsys.com`），均Cloudflare CDN
+
+### 直播源修复
+
+- **多路备份**：84个频道添加2-3个备用URL（原版大量频道只有1个URL）
+- **新增稳定直播组**：
+  - 央视高清（新增稳定源）：CCTV1-6 + CCTV13，每频道3路备份
+  - 卫视频道（新增稳定源）：湖南/浙江/江苏/东方/北京/广东，每频道2路备份
+- **死源清理**：移除 `gcalic.v.myalicdn.com`（403）等不可用直播源
+- **健康检测配置**：新增 `liveConfig`，5分钟自动检测 + 自动故障切换
+- **User-Agent配置**：为需要UA的流（如快手源）添加UA头
+
+### 版本标识
+
+- 所有 manifest 文件新增 `enhancedVersion: "v1"` 和 `enhancedName: "LDW-Cinema-Enhanced-v1"` 字段
+- `combined.json` 新增 `version: "Enhanced-v1"` 标识
+
+### 其他
+
+- 新增 `docs/POSTER_CACHE_GUIDE.md`：海报缓存代理部署指南
+- 新增 `tools/poster-cache-worker.js`：Cloudflare Worker 海报缓存脚本
+- 新增 `gen_combined.py`：combined.json 生成脚本
+- `source-update.json` 的 `configUrl` 更新为指向增强版仓库的 `combined.json`
+
+---
+
+## [Enhanced-1.0] - 2026-08-10 (第一版基线)
 
 ### 新增
 

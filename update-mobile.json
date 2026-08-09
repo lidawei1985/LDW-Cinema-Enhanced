@@ -1,6 +1,8 @@
 {
   "channel": "stable",
   "platform": "android-mobile",
+  "enhancedVersion": "v1",
+  "enhancedName": "LDW-Cinema-Enhanced-v1",
   "packageName": "com.ldw.cinema.mobile",
   "versionCode": 248,
   "versionName": "1.0.248-mobile",
@@ -30,6 +32,6 @@
   "signature": {
     "algorithm": "SHA256withRSA",
     "keyId": "update-key-v1",
-    "value": "BTqdoNPBD5NSkL+BAwqlZ3oPduxRl8NR+nHupwZUHwfoPVCRnAfwmveLrfKijcaMTiQMHP9FXxTx8WXEiluj7k2Dt60WzTW6t2AtZmmQf0Tqoh3eDsusmS3JBKl6od/WX+fvncKvJXUFK9dxVFy6EsvYL9wRoufcvNAed4DbZPKFYQ2X/FuITbqa71LEdhdgx3T3Gk11HIsgN08aYliRZS93QdVzkqvWqjnxhAwyRfEcwlkuyLCaWF3kNpEeVjMC+G0ydfS0YpBM2sBUMujlFf1Ez5a6o2LKViDCKTTsl6T7flnaNLrZyZFdZucfuyFPo/+PnLYzVJcUTSTUQsbcJw=="
+    "value": "ISI9bjfMGPAg6FLL8Fc5EVZoS9njxHkL1+PWD/THeovwtRyEb71VnX+TeaGO4W+JPoXS79DLhzdJsf2fj5kHJXsDA3PQICIrN3dpMmDP4LV+iVF0Kq6IQwoj5X3NSOE9L6tWd+06QA/AafNqMVI+t75BScuOUq/vjNliYpcDxBgOYEGB75JMd+2XTS/Pg0TEokaDUesSSk4kOGOk83qVcvCwCo6gw9yXOMZ0+5Uf4IxflOBQOUlkTvyBvnw+WQzz1YNossUAmlgrogzTcPAcT+kIkHt9ULodbk0r39/VN/9UUiqkvocbdskxjUGqQaRVKVPPur/kHPi68Sb7DgbMUQ=="
   }
 }
